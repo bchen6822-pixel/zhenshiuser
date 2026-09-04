@@ -1,17 +1,15 @@
-
-！const express = require('express');
+const express = require('express');
 const axios = require('axios');
 const app = express();
 const port = process.env.PORT || 3000;
 
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Methods', 'GET,OPTIONS');
   next();
 });
 
 app.get('/', (req, res) => {
-  res.send('✅ Railway 节点服务正常运行');
+  res.send('✅ 子节点服务正常运行');
 });
 
 app.get('/get-avatar', async (req, res) => {
@@ -55,13 +53,11 @@ app.get('/get-avatar', async (req, res) => {
         videoCount: Number(videos)
       });
     }
-    throw new Error('no avatar found');
+    throw new Error('no avatar');
   } catch (e) {
-    console.error('抓取失败:', e.message);
+    console.error('error:', e.message);
     res.status(404).json({ error: 'failed' });
   }
 });
 
-app.listen(port, () => {
-  console.log('✅ Railway 节点服务运行正常');
-});
+app.listen(port, () => console.log('✅ 子节点服务运行正常'));
